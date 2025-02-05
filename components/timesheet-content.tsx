@@ -1,53 +1,44 @@
 "use client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { PlusCircle } from "lucide-react"
 
-const timesheetData = [
-  { date: "2023-05-01", project: "Website Redesign", task: "UI Design", duration: "4:30" },
-  { date: "2023-05-01", project: "Mobile App", task: "API Integration", duration: "3:45" },
-  { date: "2023-05-02", project: "Marketing Campaign", task: "Content Creation", duration: "5:15" },
-  { date: "2023-05-02", project: "Website Redesign", task: "Frontend Development", duration: "6:00" },
-  { date: "2023-05-03", project: "Mobile App", task: "Testing", duration: "3:30" },
-]
+import * as React from "react"
+import { format } from "date-fns"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { DateRangePicker } from "@/components/ui/date-range-picker"
 
 export function TimesheetContent() {
+  const [dateRange, setDateRange] = React.useState({
+    from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // Last 7 days
+    to: new Date()
+  })
+
   return (
-    <div className="flex flex-col gap-6 p-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Timesheet</h1>
-        <Button>
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Time Entry
-        </Button>
+    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Timesheet</h2>
+          <p className="text-muted-foreground">
+            Track and manage your time entries
+          </p>
+        </div>
+        <DateRangePicker
+          value={dateRange}
+          onChange={(range) => setDateRange(range)}
+        />
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>This Week's Entries</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Project</TableHead>
-                <TableHead>Task</TableHead>
-                <TableHead>Duration</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {timesheetData.map((entry, index) => (
-                <TableRow key={index}>
-                  <TableCell>{entry.date}</TableCell>
-                  <TableCell>{entry.project}</TableCell>
-                  <TableCell>{entry.task}</TableCell>
-                  <TableCell>{entry.duration}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+
+      <div className="grid gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>Time Entries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* Time entries table will be added here */}
+            <div className="text-center text-muted-foreground py-8">
+              Loading time entries...
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

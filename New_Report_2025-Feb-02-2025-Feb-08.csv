@@ -1,0 +1,172 @@
+﻿"New Report"
+"Period: Feb 2 - Feb 8"
+"Billable Time","Non-billable Time",Task,Time,"Total Time"
+"Pact Studio Inc."
+0.33,0.00,"Update Coda with Documentation
+ABC Carpet & Home",0.33,0.33
+0.12,0.00,"PDP – Gallery Upsell Module
+Hill House Home",0.12,12.72
+0.92,0.00,"Overall Project Timeline
+Beautycounter",0.92,1.18
+0.02,0.00,"GA4 Implementation
+Hill House Home",0.02,0.93
+2.08,0.00,"PDP Template Updates – Phase 2: Development
+Studs",2.08,41.40
+0.75,0.00,"Upload 3D images from Cylindo
+ABC Carpet & Home",0.75,24.17
+0.27,0.00,"Nap Room – Data Management
+Hill House Home",0.27,0.85
+0.08,0.00,"Mobile Experience Optimizations
+ABC Carpet & Home",0.08,0.33
+0.13,0.00,"Recommended Structured Data
+ABC Carpet & Home",0.13,6.63
+0.80,0.00,"Image Logic Update: PDP, PLP, Modules
+ABC Carpet & Home",0.80,1.50
+0.60,0.00,"BUG: Shopify Flow updating variant inventory metafield needs to manually triggered sometimes
+ABC Carpet & Home",0.60,6.07
+0.50,0.00,"Homepage: Text Readability (first DY test)
+Hill House Home",0.50,4.25
+0.17,0.00,"GWP Bug Master Task
+Beekman 1802",0.17,14.27
+2.00,0.00,"Quarterly Site Speed Review
+ABC Carpet & Home",2.00,2.00
+0.10,0.00,"[UX/UI] Some bundle texts trimmed and not ideal
+Beekman 1802",0.10,0.35
+0.25,0.00,"[BUG] Items for bundle are not updating in the cart
+Beekman 1802",0.25,0.25
+0.08,0.00,"Client Review – Provide input on suggested S&D approach
+Studs",0.08,0.83
+3.50,0.00,"Custom Bundle Builder - Development
+Beekman 1802",3.50,3.50
+1.23,0.00,"Nap Room – Add consent notice to Chat & build modal for T&Cs
+Hill House Home",1.23,1.23
+0.27,0.00,"[Outline potential approach] Fulfilling via Store Inventory 
+Hill House Home",0.27,0.63
+7.75,0.00,"Featured Product (Standalone version of PDP Main Area)
+Beekman Parity Rebuild",7.75,7.75
+0.02,0.00,"Finalize third-party list and share short-list of options for Seller program
+Beautycounter",0.02,9.12
+2.68,0.00,"POS/Final Sale product requests
+Hill House Home",2.68,3.10
+0.12,0.00,"Grant Carmen permission to POS Channel in Shopify
+Hill House Home",0.12,0.40
+0.08,0.00,"[Test Migration] Prepare Migration doc for Ordergroove Launch 
+Beekman 1802",0.08,1.53
+0.43,0.00,"Review Seller/Loyalty Platform Recommendations
+Beautycounter",0.43,0.43
+0.25,0.00,"[Review] Create document outlining changes to Scope & Timeline
+Beautycounter",0.25,7.62
+2.72,0.00,"BUG: Content in 'Features' tab doesn't update when new quantity is selected
+Rifle Paper Co. ",2.72,5.13
+1.47,0.00,"2/5 - Avex Dynamic Yield Review
+Hill House Home",1.47,1.47
+0.10,0.00,"Prep + Send Agenda
+Hill House Home",0.10,0.10
+2.50,0.00,"[Deployed, Under Client Review] Rule Creation for Upsells & Cross-Sells: Products with 0 Inventory Do Not Display
+Rifle Paper Co. ",2.50,3.58
+1.92,0.00,"Prep + send meeting agenda, confirm attendees
+ABC Carpet & Home",1.92,1.92
+5.67,0.00,"2/5 - abc Planning Meeting
+ABC Carpet & Home",5.67,5.67
+0.12,0.00,"Project Management
+Beekman Parity Rebuild",0.12,1.63
+0.67,0.00,"[Choose between Option B and D] PDP: Design exploration for new Tiny sizes 
+Hill House Home",0.67,1.17
+3.18,0.00,"PDP Template Updates – Phase 2: Client Review
+Studs",3.18,3.18
+0.33,0.00,"BUG: Monogram Special Characters not allowed
+Hill House Home",0.33,2.57
+2.18,0.00,"Update asana
+Rifle Paper Co. ",2.18,2.18
+0.67,0.00,"Bi-weekly HHH Standup
+Hill House Home",0.67,0.67
+0.08,0.00,"review meeting agenda
+Hill House Home",0.08,0.08
+19.03,0.00,"Design Community Section
+Beautycounter",19.03,40.63
+0.95,0.00,"[update task + assign to dev] Batches 1-3 QA 
+Hill House Home",0.95,0.95
+0.22,0.00,"[answer question in comments] Create Contract for Newco
+Newco",0.22,0.22
+0.08,0.00,"BUG: Custom Carpet Image Gallery Swiper out of sync
+ABC Carpet & Home",0.08,0.08
+0.42,0.00,"New Store Opening: Hyde Park Village
+Studs",0.42,0.42
+0.75,0.00,"Allion <> Ben - Bitbucket management
+Enron",0.75,1.50
+0.75,0.00,"Dynamic PDP Modules: Evaluate Technical Limitations for Metaobjects Implementation
+Rifle Paper Co. ",0.75,0.75
+0.08,0.00,"Add location to Shopify-Order-To-Klaviyo-Worker
+Studs",0.08,0.08
+0.18,0.00,"Testimonials Page Redesign - Address Final Client QA Items 
+goTenna",0.18,3.15
+0.50,0.00,"Review Beam Cart Widget code
+Beekman 1802",0.50,0.88
+0.30,0.00,"BUG: Issue with exit season logic recent deployment
+Rifle Paper Co. ",0.30,0.55
+4.17,0.00,"[P0] Enron Coin Webpage: Get ready for launch
+Enron",4.17,9.98
+1.03,0.00,"Enron Coin Webpage: Digital Assets Gallery Page
+Enron",1.03,1.03
+0.20,0.00,"Lover's Lane location needs to be updated to be a Complex Teen State
+Studs",0.20,1.12
+0.33,0.00,"BUG: Collections Module Breakpoint issue
+Studs",0.33,0.33
+0.07,0.00,"[not actioned] Schedule touchpoint with JB about third parties
+Beautycounter",0.07,0.07
+3.23,0.00,"Add roadmap into Asana 
+Studs",3.23,3.23
+1.00,0.00,"Testing and review of solution
+Beekman 1802",1.00,1.25
+2.58,0.00,"(Ongoing) Project Management, PRs, Deployments, etc. 
+Beautycounter",2.58,2.58
+0.08,0.00,"deal with action items
+Beautycounter",0.08,0.08
+0.20,0.00,"Internal Planning Meetings
+Beautycounter",0.20,0.20
+1.35,0.00,"[Ongoing] PRs, Comms, PM, Internal Standups, etc.
+Beekman 1802",1.35,1.35
+1.60,0.00,"[Ongoing] PR Reviews, Unblocking, Comms, Internal Standups, etc.
+Studs",1.60,1.60
+0.28,0.00,"(Ongoing) Project Management, Internal Standups, Comms, Code Review, etc.
+ABC Carpet & Home",0.28,0.28
+0.60,0.00,"Deliver MNDA to Superfiliate and Exigo
+Beautycounter",0.60,0.60
+0.25,0.00,"[P0] Enroin Coin Page: Modal errors
+Enron",0.25,0.25
+0.25,0.00,"Question – Any concerns with us changing this Klaviyo metric?
+Beekman 1802",0.25,0.25
+1.00,0.00,"[Ongoing] Project Management, Internal Standups, PRs, Comms, etc. 
+Rifle Paper Co. ",1.00,1.00
+1.03,0.00,"[Ongoing] PM, Internal Standups, Comms, Code Review, etc
+Hill House Home",1.03,1.03
+0.08,0.00,"GA4 Implementation – Further QA
+Hill House Home",0.08,0.08
+0.75,0.00,"Review latest QA and confirm whether it should be handed off to Carmen
+Hill House Home",0.75,0.75
+0.20,0.00,"Log QA tasks in Asana 
+Hill House Home",0.20,0.20
+0.13,0.00,"QA: Email signup attempt
+Hill House Home",0.13,0.13
+0.07,0.00,"Post Cylindo Follow Ups
+ABC Carpet & Home",0.07,0.07
+5.47,0.00,"Assess Errors Log in Netlify that is causing Invocations Overage
+Studs",5.47,5.47
+0.02,0.00,"[Deployed, Needs Client Review] BUG: Issue with Product Main Module Cross-Sell
+Rifle Paper Co. ",0.02,0.02
+0.13,0.00,"Prep + send meeting agenda
+Beautycounter",0.13,0.13
+0.12,0.00,"Share write-up of proposed changes to Scope & Timeline & get Beautycounter confirmation 
+Beautycounter",0.12,0.12
+0.22,0.00,"POS App Updates
+Hill House Home",0.22,0.22
+0.17,0.00,"Create Nap Room documentation
+Hill House Home",0.17,0.17
+0.03,0.00,"Check if 'Final Sale' is appearing on POS order receipt
+Hill House Home",0.03,0.03
+1.40,0.00,"2/5 Scope, Timeline & Budget Review Meeting
+Beautycounter",1.40,1.40
+1.78,0.00,"Nap Room – Anonymize all data so cookies are not needed
+Hill House Home",1.78,1.78
+100.23,0.00,"83 tasks",100.23,268.77
+100.23,0.00,"83 tasks",100.23,268.77

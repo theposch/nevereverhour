@@ -1,0 +1,1991 @@
+FORMAT: 1A
+HOST: https://api.everhour.com
+
+# Everhour API
+
+**The Everhour API is currently in BETA**, which means that some API calls can be slightly adjusted in near future.
+Meanwhile, we do our best to push any BC changes in separate API versions and protect your integrations from unexpected crashes.
+
+For any suggestions, feedback and issues please send a message to chat inside your Everhour account or email us at ask@everhour.com.
+
+## Getting Started
+
+Everhour API is a RESTful interface, providing programmatic access to much of the data in the system.
+It provides predictable URLs to access resources, and uses built-in HTTP features to receive commands and return responses.
+This makes it easy to communicate with from a wide variety of environments, from command-line utilities to gadgets to the browser URL bar itself.
+
+The API accepts only JSON content in requests and returns JSON content in all of its responses, including errors.
+Only the UTF-8 character encoding is supported for both requests and responses.
+
+## Authentication
+
+Currently, we provide only a plain authorization by an API key.
+You can find an API key in [your profile](https://app.everhour.com/#/account/profile) at the bottom of the page.
+
+All your requests should include **X-Api-Key** header with valid API key.
+
+For example:
+
+`X-Api-Key: abcd-efgh-1234567-7890ab-cdefgh12`
+
+## Versioning
+
+Optionally, you can use specific API version with **X-Accept-Version** request header.
+We will stick you with the most recent version (1.2) if there are no such header in the request.
+
+For example:
+
+`X-Accept-Version: 1.2`
+
+## Rate Limiting
+
+The limit is currently around 20 requests per 10 seconds per API key, but this is not guaranteed: it may vary with server load, and we may change it in the future.
+You will receive a **429** HTTP response if you exceed the rate limit. **Retry-After** response header will specify the number of seconds after the user can make another request.
+
+Please contact us first, if you need perform a batch of API requests.
+Maybe we can provide you a more convenient way to retrieve the data.
+
+
+
+# Clients [/clients]
+
+## Get All Clients [GET /clients{?query}]
+
++ Parameters
+    + query: `Vending Inc` (string, optional) - Search Clients by Name
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Client])
+
+## Get Client [GET /clients/{client_id}]
+
++ Parameters
+    + client_id: 107 (number) - Client ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+        
++ Response 200 (application/json)
+
+    + Attributes (Client)
+
+## Create Client [POST]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (ClientRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Client)
+
+## Update Client [PUT /clients/{client_id}]
+
++ Parameters
+    + client_id: 107 (number) - Client ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ClientRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Client)
+
+## Update Client Budget [PUT /clients/{client_id}/budget]
+
++ Parameters
+    + client_id: 107 (number) - Client ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ClientBudget)
+
++ Response 200 (application/json)
+
+    + Attributes (Client)
+
+## Delete Client Budget [DELETE /clients/{client_id}/budget]
+
++ Parameters
+    + client_id: 107 (number) - Client ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+
+
+# Invoices [/invoices]
+
+## Get All Invoices [GET]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Invoice])
+
+## Get Invoice [GET /invoices/{invoice_id}]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Invoice)
+
+## Create Invoice [POST /clients/{client_id}/invoices]
+
++ Parameters
+    + client_id: 107 (number) - Client ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (InvoiceCreateRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Invoice)
+
+## Update Invoice [PUT /invoices/{invoice_id}]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (InvoiceUpdateRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Invoice)
+
+## Refresh Invoice Line Items [POST /invoices/{invoice_id}/reset-time]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (InvoiceRefreshRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Invoice)
+
+
+## Mark Invoice as Draft/Sent/Paid [POST /invoices/{invoice_id}/{status}]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+    + status: `sent` (enum) - Invoice Status
+        + `draft`
+        + `sent`
+        + `paid`
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
++ Response 200 (application/json)
+
+    + Attributes (Invoice)
+
+## Export Invoice to Xero/QB/FB [POST /invoices/{invoice_id}/export]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
++ Response 200 (application/json)
+
+    + Attributes (Invoice)
+
+
+## Delete Invoice [DELETE /invoices/{invoice_id}]
+
++ Parameters
+    + invoice_id: 11903 (number) - Invoice ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
++ Response 204 (application/json)
+
+# Expenses [/expenses]
+
+## Get All Expenses [GET]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Expense])
+
+## Create Expense [POST]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ExpenseRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Expense)
+
+## Update Expense [PUT /expenses/{expense_id}]
+
++ Parameters
+    + expense_id: 7810 (number) - Expense ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ExpenseRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Expense)
+
+## Delete Expense [DELETE /expenses/{expense_id}]
+
++ Parameters
+    + expense_id: 7810 (number) - Expense ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+## Get All Categories [GET /expenses/categories]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[ExpenseCategory])
+
+## Create Category [POST /expenses/categories]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ExpenseCategoryRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (ExpenseCategory)
+
+## Update Category [PUT /expenses/categories/{category_id}]
+
++ Parameters
+    + category_id: 94 (number) - Expense Category ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ExpenseCategoryRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (ExpenseCategory)
+
+## Delete Category [DELETE /expenses/categories/{category_id}]
+
++ Parameters
+    + category_id: 94 (number) - Expense Category ID
+    
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ExpenseCategoryDeleteRequest)
+
++ Response 204 (application/json)
+
+## Create Attachment [POST /attachments]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (AttachmentRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (AttachmentDetails)
+
+## Add Attachment To Expense [POST /expenses/{expense_id}/attachments]
+
++ Parameters
+    + expense_id: 7810 (number) - Expense ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (AttachmentRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (AttachmentDetails)
+
+## Download Attachment [GET /attachments/{attachment_token}/download]
+
++ Parameters
+    + attachment_token: `aaaabbbbcccddd.eeefff` (string)
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (image/png)
+
+## Delete Attachment [DELETE /attachments/{attachment_id}]
+
++ Parameters
+    + attachment_id: 3905 (number) - Attachment ID
+    
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
++ Response 204 (application/json)
+
+
+# Schedule [/resource-planner]
+
+## Get All Assignments [GET /resource-planner/assignments{?type,project,task,client,from,to}]
+
++ Parameters
+    + type: `time-off` (enum,optional) - Filter by Assingment Type
+        + `time-off`
+        + `assignment`
+    + project: `ev:3456780034` (string,optional) - Filter by Project ID
+    + task: `ev:1123000456` (string,optional) - Filter by Task ID
+    + client: 1408 (number,optional) - Filter by Client ID
+    + from: `2020-11-19` (string,optional) - Get Assignments Starting From
+    + to: `2020-11-31` (string,optional) - Get Assignments Ending At
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Assignment])
+
+## Create Assignment [POST /resource-planner/assignments]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (AssignmentRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Assignment)
+
+## Update Assignment [PUT /resource-planner/assignments/{assignment_id}]
+
++ Parameters
+    + assignment_id: 8495 (number) - Assignment ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (AssignmentRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Assignment)
+
+## Delete Assignment [DELETE /resource-planner/assignments/{assignment_id}]
+
++ Parameters
+    + assignment_id: 8495 (number) - Assignment ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+
+
+# Projects [/projects]
+
+## Get All Projects [GET /projects{?platform,query,limit}]
+
++ Parameters
+    + limit: 100 (number, optional) - Max Results
+    + query: `Developemtn` (string, optional) - Search Projects by Name
+    + platform: `as` (enum[string], optional) - Filter by Integration
+        + Members
+            + as
+            + ev
+            + b3
+            + b2
+            + pv
+            + gh
+            + in
+            + tr
+            + jr
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Project])
+
+
+## Get Project [GET /projects/{project_id}]
+
++ Parameters
+    + project_id: `as:1234567789001` (string) - Project ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Project)
+    
+
+## Create Project [POST]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ProjectRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Project)
+
+## Update Project [PUT /projects/{project_id}]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ProjectRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Project)
+
+## Update Project Billing/Budget [PUT /projects/{project_id}/billing]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes (ProjectBilling)
+
++ Response 200 (application/json)
+
+    + Attributes (Project)
+    
++ Request (application/json)
+    + Headers
+
+            Example: : Hourly project
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes
+        + billing
+            + type: `hourly` (string)
+        + budget
+            + type: `money` (string)
+            + budget: 50000 (number)
+        + rate
+            + type: `project_rate` (string)
+            + rate: 10000 (number)
+
++ Response 200
+    
++ Request (application/json)
+    + Headers
+
+            Example: : Fixed-fee project
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes
+        + billing
+            + type: `fixed_fee` (string)
+            + fee: 50000 (number)
+        + budget
+            + type: `money` (string)
+        + rate
+            + type: `user_rate` (string)
+
++ Response 200
+
+
++ Request (application/json)
+    + Headers
+
+            Example: : Non-billable project
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes
+        + billing
+            + type: `non_billable` (string)
+        + budget
+            + type: `time` (string)
+            + budget: 360000 (number)
+
++ Response 200
+
+    
++ Request (application/json)
+    + Headers
+
+            Example: : Hourly project with user rates overrides
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes
+        + billing
+            + type: `hourly` (string)
+        + rate
+            + type: `user_rate` (string)
+            + userRateOverrides
+                + 45038: 10000 (number)
+
++ Response 200
+
+## Delete Project [DELETE /projects/{project_id}]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+## Get Project Sections [GET /projects/{project_id}/sections]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Section])
+
+## Get Section [GET /sections/{section_id}]
+
++ Parameters
+    + section_id: 349235 (number) - Section ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Section)
+
+## Create Section [POST /projects/{project_id}/sections]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (SectionRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Section)
+
+
+## Update Section [PUT /sections/{section_id}]
+
++ Parameters
+    + section_id: 349235 (number) - Section ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (SectionRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Section)
+
+## Delete Section [DELETE /sections/{section_id}]
+
++ Parameters
+    + section_id: 349235 (number) - Section ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+
+# Tasks [/tasks]
+
+## Get Project Tasks [GET /projects/{project_id}/tasks{?query,excludeClosed,limit,page}]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+    + page: 1 (number, optional) - Results page
+    + limit: 250 (number, optional) - Tasks per page, 250 max
+    + excludeClosed: false (boolean, optional) - Exclude closed/completed tasks
+    + query: `Management` (string, optional) - Search tasks by name
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Task])
+
+## Get Task [GET /tasks/{task_id}]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Task)
+
+## Search Tasks [GET /tasks/search{?query,limit,searchInClosed}]
+
++ Parameters
+
+    + query: `Managem` (string, optional) - Search query
+    + limit: 10 (number, optional) - Max number of search results
+    + searchInClosed: false (boolean, optional) - Should do we search in closed/completed tasks?
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+    
++ Response 200 (application/json)
+
+    + Attributes (array[Task])
+
+## Search Project Tasks [GET /projects/{project_id}/tasks/search{?query,limit,searchInClosed}]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+    + query: `Managem` (string, optional) - Search query
+    + limit: 10 (number, optional) - Max number of search results
+    + searchInClosed: false (boolean, optional) - Should do we search in closed/completed tasks?
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Task])
+
+
+## Create Task [POST /projects/{project_id}/tasks]
+
++ Parameters
+    + project_id: `ev:1234567789001` (string) - Project ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TaskRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Task)
+
+## Update Task [PUT /tasks/{task_id}]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TaskRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Task)
+
+## Delete Task [DELETE /tasks/{task_id}]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+## Update Task Estimate [PUT /tasks/{task_id}/estimate]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TaskEstimate)
+
++ Response 200 (application/json)
+
+    + Attributes (Task)
+
+## Delete Task Estimate [DELETE /tasks/{task_id}/estimate]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+# Time Records [/time]
+
+## Get All Time Records [GET /team/time{?from,to,page,limit}]
+
++ Parameters
+
+    + from: `2018-01-01` (string, optional) - Date from
+    + to: `2018-01-31` (string, optional) - Date to
+    + limit: 100 (number, optional) - Max results for pagination
+    + page: 1 (number, optional) - Page
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[TimeRecordExtended])
+
+
+## Get User Time Records [GET /users/{user_id}/time{?limit,page,from,to}]
+
++ Parameters
+    + user_id: 89 (number) - User ID
+    + from: `2018-01-01` (string, optional) - Date from
+    + to: `2018-01-31` (string, optional) - Date to
+    + limit: 100 (number, optional) - Max results for pagination
+    + page: 1 (number, optional) - Page
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[TimeRecord])
+
+
+## Get Task Time Records [GET /tasks/{task_id}/time{?from,to,limit,page}]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+    + from: `2018-01-01` (string, optional) - Date from
+    + to: `2018-01-31` (string, optional) - Date to
+    + limit: 100 (number, optional) - Max results for pagination
+    + page: 1 (number, optional) - Page
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[TimeRecordExtended])
+    
+
+## Get Project Time Records [GET /projects/{project_id}/time{?from,to,limit,page}]
+
++ Parameters
+    + project_id: `as:13456788` (string) - Project ID
+    + from: `2018-01-01` (string, optional) - Date from
+    + to: `2018-01-31` (string, optional) - Date to
+    + limit: 100 (number, optional) - Max results for pagination
+    + page: 1 (number, optional) - Page
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[TimeRecordExtended])
+
+## Add Time [POST /tasks/{task_id}/time]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TimeRecordRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (TimeRecordExtended)
+
+## Update Time Record [PUT /tasks/{task_id}/time]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TimeRecordRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (TimeRecordExtended)
+
+## Delete Time Record [DELETE /tasks/{task_id}/time]
+
++ Parameters
+    + task_id: `ev:3000010034` (string) - Task ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (RemoveTimeRecordRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (TimeRecordExtended)
+
+# Timers [/timers]
+
+## Start Timer [POST /timers]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (TimerRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Timer)
+
+## Get Running Timer [GET /timers/current]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Timer)
+
+## Get All Team Timers [GET /team/timers]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Timer])
+
+## Stop Timer [DELETE /timers/current]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Timer)
+
+
+# Timecards [/timecards]
+
+## Get Timecard [GET /users/{user_id}/timecards/{date}]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+    + date: `2020-10-21` (string) - Date
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Timecard)
+
+## Get User Timecards [GET /users/{user_id}/timecards{?from,to}]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+    + from: `2020-10-01` (string, optional) - Date from (2 weeks ago by default)
+    + to: `2020-11-01` (string, optional) - Date to
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Timecard])
+
+## Get All Timecards [GET /timecards{?from,to}]
+
++ Parameters
+    + from: `2020-10-01` (string, optional) - Date from (2 weeks ago by default)
+    + to: `2020-11-01` (string, optional) - Date to
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[Timecard])
+
+## Clock In [POST /users/{user_id}/timecards/clock-in]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes
+        + userDate: `2020-11-27` (string, optional) - Current user date, if not specified we will rely on user profile timezone.
+
++ Response 200 (application/json)
+
+    + Attributes (Timecard)
+
+## Clock Out [POST /users/{user_id}/timecards/clock-out]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes
+        + userDate: `2020-11-27` (string, optional) - Current user date, if not specified we will rely on user profile timezone.
+
++ Response 200 (application/json)
+
+    + Attributes (Timecard)
+
+## Update Timecard [PUT /users/{user_id}/timecards/{date}]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+    + date: `2020-10-21` (string) - Date
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+    + Attributes
+        + clockIn: `09:00` (string, optional) - Clock in time in user timezone
+        + clockOut: `18:00` (string, optional) - Clock out time in user timezone
+        + breakTime: 3600 (number, optional) - Breaks duration in seconds
+
++ Response 200 (application/json)
+
+    + Attributes (Timecard)
+
+## Delete Timecard [DELETE /users/{user_id}/timecards/{date}]
+
++ Parameters
+    + user_id: `89` (number) - User ID
+    + date: `2020-10-21` (string) - Date
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+
+# Reports [/dashboards]
+
+---
+
+**Data Types**
+
+All time columns are in seconds. For example: 3600 is one hour.
+
+All amounts are in cents. For example: 500 is $5.00.
+
+## Projects Report [GET /dashboards/projects{?date_gte,date_lte,projectId,clientId,memberId}]
+
++ Parameters
+
+    + date_gte: `2020-01-01` (string, optional) - Report start date
+    + date_lte: `2021-01-01` (string, optional) - Report end date
+    + projectId: `as:123456789012345` (string, optional) - Filter by project ID
+    + clientId: `12345` (number, optional) - Filter by client ID
+    + memberId: `7890` (number, optional) - Filter by user ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[ProjectsDashboardItem])
+
+## Clients Report [GET /dashboards/clients{?date_gte,date_lte,projectId,clientId,memberId}]
+
++ Parameters
+
+    + date_gte: `2020-01-01` (string, optional) - Report start date
+    + date_lte: `2021-01-01` (string, optional) - Report end date
+    + projectId: `as:123456789012345` (string, optional) - Filter by project ID
+    + clientId: `12345` (number, optional) - Filter by client ID
+    + memberId: `7890` (number, optional) - Filter by user ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[ClientsDashboardItem])
+
+## Users Report [GET /dashboards/users{?date_gte,date_lte,projectId,clientId,memberId}]
+
++ Parameters
+
+    + date_gte: `2020-01-01` (string, optional) - Report start date
+    + date_lte: `2021-01-01` (string, optional) - Report end date
+    + projectId: `as:123456789012345` (string, optional) - Filter by project ID
+    + clientId: `12345` (number, optional) - Filter by client ID
+    + memberId: `7890` (number, optional) - Filter by user ID
+
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[UsersDashboardItem])
+
+## Estimates Report (deprecated) [GET /team/estimate/export{?dueFrom,dueTo,status}]
+
++ Parameters
+
+    + dueFrom: `2018-01-01` (string, optional) - Task due date from you what to fetch estimates (format YYYY-MM-DD)
+    + dueTo: `2018-01-31` (string, optional) - Task due date to you what to fetch estimates (format YYYY-MM-DD)
+    + status: `open` (string, optional) - Task status (e.g. open or completed)
+
++ Request (application/json)
+
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[EstimateExportObject])
+
+## Time Report (deprecated) [GET /team/time/export{?from,to,fields}]
+
++ Parameters
+
+    + from: `2018-01-01` (string, optional) - Date from you what to fetch reported time (format YYYY-MM-DD)
+    + to: `2018-01-31` (string, optional) - Date to you what to fetch reported time (format YYYY-MM-DD)
+    + fields: `date,user,task` (string, optional) - Comma separated objects to group by and fetch (allowed: user, project, task and date).
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[TimeExportObject])
+
+
+# Users [/users]
+
+## Get Current User [GET /users/me]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (User)
+
+## Get All Users [GET /team/users]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (array[User])
+
+
+# Webhooks [/hooks]
+
+---
+Everhour supports webhooks to notify you when changes are made to your resources.
+
+Supported events:
+```
+api:project:created
+api:project:updated
+api:project:removed
+api:task:created
+api:task:updated
+api:task:removed
+api:timer:started
+api:timer:stopped
+api:time:updated
+api:section:created
+api:section:updated
+api:section:removed
+api:client:created
+api:client:updated
+api:estimate:updated
+```
+
+**Target Url Verification**
+
+When you create a new webhook or update exists webhook, we'll send you a POST requests with `X-Hook-Secret` header and empty body. 
+Your target url should reply us `X-Hook-Secret` header back to complete verification.
+
+## Get Webhook [GET /hooks/{hook_id}]
+
++ Parameters
+    + hook_id: `280382` (number) - Webhook ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 200 (application/json)
+
+    + Attributes (Webhook)
+
+## Create Webhook [POST /hooks]
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (WebhookRequest)
+
++ Response 201 (application/json)
+
+    + Attributes (Webhook)
+
+## Update Webhook [PUT /hooks/{hook_id}]
+
++ Parameters
+    + hook_id: `280382` (number) - Webhook ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
+
+    + Attributes (WebhookRequest)
+
++ Response 200 (application/json)
+
+    + Attributes (Webhook)
+
+## Delete Webhook [DELETE /hooks/{hook_id}]
+
++ Parameters
+    + hook_id: `280382` (number) - Webhook ID
+
++ Request (application/json)
+    + Headers
+
+            X-Api-Key: aaaa-bbbb-cccddd-eeefff-gggghhii
+
++ Response 204 (application/json)
+
+## Data Structures
+
+### WebhookRequest
++ targetUrl: `https://some-secure-endpoint.com/path` (string, required)
++ events (array[string], required) - List of events you want to receive
+    - `api:time:updated`
++ project: `ev:12345657890` (string) - You can receive events only for specific project
+
+### Webhook
++ id: 12345 (number, required) - Webhook ID
++ targetUrl: `https://some-secure-endpoint.com/path` (string, required)
++ events (array[string], required) - List of events you want to receive
+    - `api:time:updated`
++ project: `ev:12345657890` (string) - You can receive events only for specific project
++ isActive: true (boolean)
++ createdAt: `2018-03-05 16:17:14` (string, required) - Datetime when webhook was created (format: Y-m-d H:i:s)
++ lastUsedAt: `2018-03-05 20:01:58` (string, required) - Datetime when webhook was last used (format: Y-m-d H:i:s)
+
+### ClientBudget
++ type: `money` (enum[string], required) - Budget Type
+    - `money` - Money budget
+    - `time` - Time budget
++ budget: 100000 (number, required) - Budget value in cents (for money) or seconds (for time)
++ period: `general` (enum[string], required) - Budget periodicity (overall, monthly, weekly, daily)
+    - `general` - Non-recurrent budget
+    - `monthly` - Monthly budget
+    - `weekly` - Weekly budget
+    - `daily` - Daily budget
++ appliedFrom (string) - Start budget from (available only for non-recurrent budgets)
++ disallowOverbudget (boolean) - Disallow overbudget
++ excludeUnbillableTime (boolean) - Exclude non-billable time
++ excludeExpenses (boolean) - Exclude expenses
++ threshold (number) - Email admins when threshold reached. Threshold is percentage: 1 - 100.
++ progress: 0 (number) - [readonly] Current budget usage in cents (for money) or seconds (for time)
+
+### Project
++ id: as:1234567890 (string, required)
++ name: Project Name (string, required)
++ workspaceId: as:9876543219 (string, optional)
++ workspaceName: Workspace Name (string, optional)
++ client: 123456 (number, optional) - Client ID
++ type: `board` (enum[string], optional) - Project Type
+    - `board` - Board project
+    - `list` - To-do list project
++ favorite: false (boolean) 
++ users: 1304, 1543 (array[number]) - List of assigned user IDs
++ billing (ProjectBillingBilling) - Billing type
++ rate (ProjectBillingRate) - Rates configuration for billing or budget progress
++ budget (ProjectBillingBudget) - Budget
+
+### ProjectRequest
++ name: Project Name (string, required)
++ type: `board` (enum[string], required) - Project Type
+    - `board` - Board project
+    - `list` - To-do list project
++ users: 1304, 1543 (array[number]) - List of assigned user IDs
+
+### ProjectBillingBilling
++ type (enum[string], required) - Project Type
+    - `non_billable` - Non-billably project
+    - `hourly` - Project with hourly rates (see billing.rates propery to set rates)
+    - `fixed_fee` - Fixed fee project
++ fee: 10000 (number) - Project fixed fee in cents (e.g. 10000 means $100.00). Available only for `fixed_fee` type.
+
+### ProjectBillingRate
++ type (enum[string], required) - Project Type
+    - `project_rate` - Flat-rate project (single rate for all team members)
+    - `user_rate` - User-rate project (each team member has individual rate)
+    - `user_cost` - Similar to user_rate buy we will use user hourly cost rate
++ rate: 10000 (number) - Flat-rate in cents (e.g. 10000 means $100.00). Available only for `project_rate` type.
++ userRateOverrides - Override user rates. Available only for `user_rate` type.
+    + *1304*: 10000 (number, required) - User ID=1304 has billable rate $100.00/hrs (10000 cents)
+    + *1543*: 5000 (number, required) - User ID=1543 has billable rate $50.00/hrs (5000 cents)
++ userCostOverrides - Override user cost rates. Available only for `user_cost` type.
+    + *1304*: 10000 (number, required) - User ID=1304 has billable rate $100.00/hrs (10000 cents)
+    + *1543*: 5000 (number, required) - User ID=1543 has billable rate $50.00/hrs (5000 cents)
+
+
+### ProjectBillingBudget
++ type: `money` (enum[string], required) - Budget Type
+    - `money` - Money budget
+    - `time` - Time budget
++ budget: 100000 (number, required) - Budget value in cents (for money) or seconds (for time)
++ progress: 0 (number) - [readonly] Current budget usage in cents (for money) or seconds (for time)
++ timeProgress: 0 (number) - [readonly] Budget progress belongs to time tracking
++ expenseProgress: 0 (number) - [readonly] Budget progress belongs to expeses
++ period: `general` (enum[string], required) - Budget periodicity (overall, monthly, weekly, daily)
+    - `general` - Non-recurrent budget
+    - `monthly` - Monthly budget
+    - `weekly` - Weekly budget
+    - `daily` - Daily budget
++ appliedFrom (string) - Start budget from (available only for non-recurrent budgets)
++ disallowOverbudget (boolean) - Disallow overbudget
++ excludeUnbillableTime (boolean) - Exclude non-billable time
++ excludeExpenses (boolean) - Exclude expenses
++ showToUsers (boolean) - Set true if all team members should see budget and its progress
++ threshold (number) - Email admins when threshold reached. Threshold is percentage: 1 - 100.
+
+
+### ProjectBilling
++ billing (ProjectBillingBilling) - Billing type
++ rate (ProjectBillingRate) - Rates configuration for billing or budget progress
++ budget (ProjectBillingBudget) - Budget
+
+### Section
++ id: 1234 (number, required)
++ name: Section Name (string, required)
++ project: ev:1234567890 (string, required)
++ position: 1 (number, required)
++ status: `open` (enum[string], optional)
+    - `open`
+    - `archived`
+
+### SectionRequest
++ name: Section Name (string, required)
++ position: 1 (number, optional)
++ status: `open` (enum[string], optional)
+    - `open`
+    - `archived`
+
+### Task
++ id: ev:9876543210 (string, required)
++ name: Task Name (string, required)
++ projects: ev:1234567890 (array[string], required) List of projects ID
++ section: 1234 (number, optional) - Section ID
++ labels: high, bug (array[string], optional)
++ position: 1 (number, optional)
++ description (string, optional)
++ dueAt: `2018-03-05 16:00:00` (string, optional) - Format: Y-m-d H:i:s
++ status: `open` (enum[string], optional)
+    - `open`
+    - `closed`
++ time (TaskTime, optional)
++ estimate (TaskEstimate, optional)
++ attributes (optional) - Custom attributes from integration
+    + *Client*: Everhour - example of custom attribute Client
+    + *Priority*: hight - example of custom attribute Priority
++ metrics (optional) - Custom metrics from integration
+    + *efforts*: 42 (number) - example of custome metric efforts
+    + *expenses*: 199 (number) - example of custome metric expenses
++ unbillable (boolean, optional)
+
+### TaskRequest
++ name: Task Name (string, required)
++ section: 1234 (number, required) - Section ID
++ labels: high, bug (array[string], optional)
++ position: 1 (number, optional)
++ description (string, optional)
++ dueOn: `2018-03-05` (string, optional) - Format: Y-m-d
++ status: `open` (enum[string], optional)
+    - `open`
+    - `closed`
+
+### TaskTime
+
++ total: 7200 (number, required) - Total task time in seconds
++ users
+    + *1304*: 3600 (number, required) - Task time for user ID=1304
+    + *1543*: 3600 (number, required) - Task time for user ID=1543
+
+### TaskEstimate
+
++ total: 7200 (number, required) - Total task estimate in seconds
++ type: overall (enum[string], required)
+    - `overall`
+    - `users`
++ users
+    + *1304*: 3600 (number, required) - Task estimate for user ID=1304
+    + *1543*: 3600 (number, required) - Task estimate for user ID=1543
+
+### User
++ id: 1304 (number, required)
++ name: User Name (string, required)
++ headline: CEO (string, optional)
++ avatarUrl (string, optional)
++ role: admin (enum[string], required)
+    - `admin`
+    - `supervisor`
+    - `member`
++ status: active (enum[string], required)
+    - `active`
+    - `invited`
+    - `pending`
+    - `removed`
+
+### Client
++ id: 4567 (number, required)
++ name: Client Name (string, required)
++ projects: ev:1234567890 (array[string], required) List of projects ID
++ businessDetails (string, optional)
++ budget (ClientBudget) - Client Budget
+
+### ClientRequest
++ name: Client Name (string, required)
++ projects: ev:1234567890 (array[string], optional) List of projects ID
++ businessDetails (string, optional)
+
+### Timer
++ status: active (enum[string], required)
+    - `active`
+    - `stopped`
++ duration: 16 (number, optional) - Timer duration in seconds
++ today: 7200 (number, optional) - Today time by user in the timer task
++ startedAt: `2018-01-16 12:42:59` (string, optional)
++ userDate: `2018-01-16` (string, optional)
++ comment (string, optional)
++ task (Task, optional)
++ user (User, optional)
+
+### TimerRequest
++ task: ev:9876543210 (string, required)
++ userDate: `2018-01-16` (string, optional)
++ comment: `some notes` (string, optional)
+
+### TimeExportObject
++ time: 7200 (number, required) - Report time in seconds
++ date: `2018-03-20` (string, optional) - Will appear only if 'date' passed to `fields` parameter
++ user (optional) - Will appear only if 'user' passed to `fields` parameter
+    + id: 1304 (number, required)
+    + name: Chris Wonder (string, required)
++ project (optional) - Will appear only if 'project' passed to `fields` parameter
+    + id: `ev:9876543210` (string, required)
+    + name: `Project Name` (string, required)
+    + workspace: `Project Workspace Name` (string, optional)
++ task (optional) - Will appear only if 'task' passed to `fields` parameter
+    + id: `ev:1234567890` (string, required)
+    + name: Task Name (string, required)
+    + status: open (string, optional)
+    + type: task (string, optional)
+    + iteration: `Iteration/column/section name` (string, optional)
+    + number: 123 (number, optional) - Task number
+    + dueAt: `2018-01-20` (string, optional)
+
+### EstimateExportObject
++ time (TaskTime)
++ estimate (TaskEstimate)
++ project (optional) - Will appear only if 'project' passed to `fields` parameter
+    + id: `ev:9876543210` (string, required)
+    + name: `Project Name` (string, required)
+    + workspace: `Project Workspace Name` (string, optional)
++ task (optional) - Will appear only if 'task' passed to `fields` parameter
+    + id: `ev:1234567890` (string, required)
+    + name: Task Name (string, required)
+    + status: open (string, optional)
+    + type: task (string, optional)
+    + iteration: `Iteration/column/section name` (string, optional)
+    + number: 123 (number, optional) - Task number
+    + dueAt: `2018-01-20` (string, optional)
+
+### TimeRecord
++ id: 2660155 (number, required) - Time record ID
++ time: 3600 (number, required) - Time recorded in seconds
++ user: 1304 (number, required) - User ID
++ date: `2018-01-20` (string, required) - Date
++ task (Task)
++ isLocked: false (boolean)
++ isInvoiced: false (boolean)
++ comment: `some notes` (string)
+
+### TimeRecordExtended
++ id: 2660155 (number, required) - Time record ID
++ time: 3600 (number, required) - Time recorded in seconds
++ user: 1304 (number, required) - User ID
++ date: `2018-01-20` (string, required) - Date
++ task (Task)
++ isLocked: false (boolean)
++ isInvoiced: false (boolean)
++ comment: `some notes` (string)
++ history (array[TimeHistory])
+
+### TimeHistory
++ id: 4622379 (number, required) - Time record history ID
++ createdBy: 1304 (number, required) - User ID
++ time: 3600 (number, required) - Time difference in seconds
++ previousTime: 0 (number, required) - Previous time in seconds
++ action: TIMER (enum[string], required)
+    - `TIMER`
+    - `ADD`
+    - `EDIT`
+    - `REMOVE`
+    - `COMMENT`
+    - `MOVE`
++ createdAt: `2018-01-16 12:42:59` (string, optional)
+
+### TimeRecordRequest
++ time: 3600 (number, required) - Time in seconds
++ date: `2018-01-20` (string, required) - Date
++ user: 1304 (number, optional) - User ID
++ comment: `some notes` (string, optional) - Comment
+
+### RemoveTimeRecordRequest
++ user: 1304 (number, optional) - User ID
++ date: `2018-01-20` (string, required) - Date
+
+
+### Invoice
++ id: 2660155 (number, required) - Invoice ID
++ client (Client, required) - Client
++ createdAt: `2018-01-16 12:42:59` (string, required)
++ createdBy (User, required)
++ dateFrom: `2017-02-13` (string)
++ dateTill: `2017-02-19` (string)
++ dueDate: `2017-02-24` (string)
++ discount
+    + amount: 4581 (number)
+    + rate: 25 (number)
++ expenseMask: ``%PROJECT% :: %CATEGORY%` (string)
++ includeExpenses: true (boolean)
++ includeTime: true (boolean)
++ invoiceItems (array[InvoiceItem])
++ issueDate: `2019-03-22` (string)
++ limitDateFrom: `2019-03-11` (string)
++ limitDateTill: `2019-03-13` (string)
++ listAmount: 18325 (number) - List amount in cents (without discount and taxes)
++ netAmount: 13744 (number) - Net amount in cents (without taxes but with discount applied)
++ projects: gh:63301595 (array[string])
++ publicId: `1020` (string)
++ status: `draft` (enum[string], required)
+    - `draft`
+    - `sent`
+    - `paid`
++ tax
+    + rate: 11 (number)
+    + amount: 1512  (number)
++ timeMask: ``%PROJECT%` (string)
++ totalAmount: 15256 (number) - Total invoice amount in cents (with discount and taxes applied)
++ totalTime: 43980 (number) - Total invoice time in seconds
++ valid: true
+
+### InvoiceItem
++ billedTime: 415860 (number) - Time in seconds
++ createdAt: `2017-02-22 16:11:33` (string)
++ custom: false (boolean)
++ id: 52 (number)
++ listAmount: 288793 (number) - Amount in cents
++ name: `Software Development` (string)
++ netAmount: 288793 (number) - Amount in cents
++ position: 1 (number)
++ taxable: 1 (number)
++ totalAmount: 288793 (number)
+
+### InvoiceCreateRequest
++ limitDateFrom: `2019-03-11` (string)
++ limitDateTill: `2019-03-13` (string)
++ includeExpenses: true (boolean)
++ includeTime: true (boolean)
++ projects: gh:63301595 (array[string])
++ tax
+    + rate: 11 (number)
+    + amount: 1512  (number)
++ discount
+    + amount: 4581 (number)
+    + rate: 25 (number)
+
+### InvoiceRefreshRequest
++ limitDateFrom: `2019-03-11` (string)
++ limitDateTill: `2019-03-13` (string)
++ includeExpenses: true (boolean)
++ includeTime: true (boolean)
++ projects: gh:63301595 (array[string])
++ expenseMask: ``%PROJECT% :: %CATEGORY%` (string)
++ timeMask: ``%PROJECT%` (string)
+
+
+### InvoiceUpdateRequest
++ publicId: `1020` (string)
++ issueDate: `2019-03-20` (string)
++ dueDate: `2019-03-20` (string)
++ reference: `contract #123-456` (string)
++ publicNotes (string)
++ tax
+    + rate: 11 (number)
+    + amount: 1512  (number)
++ discount
+    + amount: 4581 (number)
+    + rate: 25 (number)
++ invoiceItems (array[InvoiceItemRequest])
+
+### InvoiceItemRequest
++ id: 52 (number)
++ name: `Software Development` (string)
++ billedTime: 415860 (number) - Time in seconds
++ listAmount: 288793 (number) - Amount in cents
++ taxable: false (boolean)
++ position: 1 (number)
+
+
+### Expense
+
++ amount: 2278 (number)
++ attachments (array[AttachmentDetails])
++ billable: true (boolean)
++ category: 236046 (number)
++ date: 2019-04-04 (string)
++ details: `Transportation notes` (string)
++ id: 234718 (number)
++ project: as:333045610521453 (string)
++ quantity: 17 (number)
++ user: 6 (number)
+
+
+### ExpenseRequest
+
++ amount: 2278 (number)
++ attachments (array[number])
++ billable: true (boolean)
++ category: 236046 (number, required)
++ date: 2019-04-04 (string, required)
++ details: `Transportation notes` (string)
++ project: as:333045610521453 (string)
++ quantity: 17 (number)
++ user: 6 (number)
+
+
+### AttachmentDetails
++ id: 514 (number)
++ name: avatar.jpg (string)
++ token: 9a04b8a1fb99cbfadf3386ad6a338c14 (string)
+
+### AttachmentRequest
++ name: avatar.jpg (string)
++ content (string) - Base64 file content. Only jpg, png and pdf supported
+
+
+### ExpenseCategory
++ color: `#92dfb5` (string)
++ id: 236046 (number)
++ name: Mileage (string)
++ unitBased: true (boolean)
++ unitName: Miles (string)
++ unitPrice: 134 (number)
+
+### ExpenseCategoryRequest
++ color: `#92dfb5` (string)
++ name: Mileage (string)
++ unitBased: true (boolean)
++ unitName: Miles (string)
++ unitPrice: 134 (number)
+
+
+### ExpenseCategoryDeleteRequest
++ targetCategory (number)
++ removeExpenses (boolean)
+
+
+### Assignment
++ days: 10 (number) - Number of workdays
++ endDate: `2019-02-01`
++ id: 41827
++ project: `as:981141080110246`
++ startDate: `2019-01-21`
++ time: 252000 - Scheduled time in seconds
++ type: `project` (enum[string])
+    - `project`
+    - `time-off`
++ user: 79786
+
+### AssignmentRequest
++ endDate: `2019-02-01`
++ project: `as:981141080110246`
++ startDate: `2019-01-21`
++ time: 252000 - Scheduled time in seconds
++ type: `project` (enum[string])
+    - `project`
+    - `time-off`
++ user: 79786
++ forceOverride: true (boolean)
+
+### CommonMetrics
++ time: `7200` (number) - Time total (task time and time off)
++ billableTime: `3600` (number) - Billable task time total
++ nonBillableTime: `3600` (number) - Non-billable time total (non-billable task time and time off)
++ timeOffTime: `3600` (number) - Time off total in seconds
++ timeOffDays: `1` (number) - Time off total in days
++ timerTimePc: `70` (number) - How match task time was recorded via timer in %
++ billableAmount: `50000` (number) - Billable amount contains billable task time and billable expenses
++ billableAmountTime: `40000` (number) - Billable amount only for task time
++ billableAmountExpenses: `10000` (number) - Billable amount only for expenses
++ costs: `30000` (number) - Total costs contains labor costs for task time and time off plus cost expenses
++ costsTime: `20000` (number) - Costs of task time
++ costsTimeOff: `5000` (number) - Costs of time off
++ costsExpenses: `5000` (number) - Costs of expenses
++ profit: `20000` (number) - Profit is billable amount minus costs
++ profitCosts: `3000` (number) - Costs for all time ignoring date filter. Used to calculate profit for fixed fee projects.
++ uninvoicedAmount: `30000` (number) - Univoiced amount
++ expenses: `17000` (number) - Total expenses amount contains all expenses types
++ billableExpenses: `10000` (number) - Billable expenses total. This value contains all billable expenses for the selected period unlike billableAmountTime which can ignore billable expenses for fixed fee projects.
++ separateExpenses: `2000` (number) - Separate expenses total
+
+### ProjectsDashboardItem
++ projectId: `as:123456789012345` (string) - Project ID
++ projectName: `Sample Project` (string) - Project name
++ projectStatus: `open` (enum[string]) - Project status
+    - `open`
+    - `archived`
++ workspaceId: `as:2345678901234` (string) - Workspace ID
++ workspaceName: `Team Workspace` (string) - Workspace name
++ clientId: 12345 (number) - Client ID
++ clientName: `Awesome Inc.` (string) - Client name
++ billingType: `hourly` (enum[string]) - Project billing type
+    - `non_billable`
+    - `hourly`
+    - `fixed_fee`
++ time: `7200` (number) - Time total
++ billableTime: `3600` (number) - Billable task time total
++ nonBillableTime: `3600` (number) - Non-billable task time
++ timerTimePc: `70` (number) - How match task time was recorded via timer in %
++ billableAmount: `50000` (number) - Billable amount contains billable task time and billable expenses
++ billableAmountTime: `40000` (number) - Billable amount only for task time
++ billableAmountExpenses: `10000` (number) - Billable amount only for expenses
++ costs: `30000` (number) - Total costs contains labor costs for task time plus cost expenses
++ costsTime: `20000` (number) - Costs of task time
++ costsExpenses: `5000` (number) - Costs of expenses
++ profit: `20000` (number) - Profit is billable amount minus costs
++ profitCosts: `3000` (number) - Costs for all time ignoring date filter. Used to calculate profit for fixed fee projects.
++ uninvoicedAmount: `30000` (number) - Univoiced amount
++ expenses: `17000` (number) - Total expenses amount contains all expenses types
++ billableExpenses: `10000` (number) - Billable expenses total. This value contains all billable expenses for the selected period unlike billableAmountTime which can ignore billable expenses for fixed fee projects.
++ separateExpenses: `2000` (number) - Separate expenses total
+
+### ClientsDashboardItem
++ clientId: 12345 (number) - Client ID
++ clientName: `Awesome Inc.` (string) - Client name
++ time: `7200` (number) - Time total
++ billableTime: `3600` (number) - Billable task time total
++ nonBillableTime: `3600` (number) - Non-billable task time
++ timerTimePc: `70` (number) - How match task time was recorded via timer in %
++ billableAmount: `50000` (number) - Billable amount contains billable task time and billable expenses
++ billableAmountTime: `40000` (number) - Billable amount only for task time
++ billableAmountExpenses: `10000` (number) - Billable amount only for expenses
++ costs: `30000` (number) - Total costs contains labor costs for task time plus cost expenses
++ costsTime: `20000` (number) - Costs of task time
++ costsExpenses: `5000` (number) - Costs of expenses
++ profit: `20000` (number) - Profit is billable amount minus costs
++ profitCosts: `3000` (number) - Costs for all time ignoring date filter. Used to calculate profit for fixed fee projects.
++ uninvoicedAmount: `30000` (number) - Univoiced amount
++ expenses: `17000` (number) - Total expenses amount contains all expenses types
++ billableExpenses: `10000` (number) - Billable expenses total. This value contains all billable expenses for the selected period unlike billableAmountTime which can ignore billable expenses for fixed fee projects.
++ separateExpenses: `2000` (number) - Separate expenses total
+
+### UsersDashboardItem
++ memberId: 12345 (number) - User ID
++ memberName: `John Bender` (string) - User name
++ memberHeadline: `CEO` (string) - Job title
++ memberStatus: `active` (enum[string]) - User status
+    - `active`
+    - `invited`
+    - `pending`
+    - `removed`
++ memberAvatarUrl: `https://...` (string) - Avatar URL
++ time: `7200` (number) - Time total (task time and time off)
++ billableTime: `3600` (number) - Billable task time total
++ nonBillableTime: `3600` (number) - Non-billable time total (non-billable task time and time off)
++ timeOffTime: `3600` (number) - Time off total in seconds
++ timeOffDays: `1` (number) - Time off total in days
++ timerTimePc: `70` (number) - How match task time was recorded via timer in %
++ billableAmount: `50000` (number) - Billable amount contains billable task time and billable expenses
++ billableAmountTime: `40000` (number) - Billable amount only for task time
++ billableAmountExpenses: `10000` (number) - Billable amount only for expenses
++ costs: `30000` (number) - Total costs contains labor costs for task time and time off plus cost expenses
++ costsTime: `20000` (number) - Costs of task time
++ costsTimeOff: `5000` (number) - Costs of time off
++ costsExpenses: `5000` (number) - Costs of expenses
++ profit: `20000` (number) - Profit is billable amount minus costs
++ profitCosts: `3000` (number) - Costs for all time ignoring date filter. Used to calculate profit for fixed fee projects.
++ uninvoicedAmount: `30000` (number) - Univoiced amount
++ expenses: `17000` (number) - Total expenses amount contains all expenses types
++ billableExpenses: `10000` (number) - Billable expenses total. This value contains all billable expenses for the selected period unlike billableAmountTime which can ignore billable expenses for fixed fee projects.
++ separateExpenses: `2000` (number) - Separate expenses total
+
+### TimecardHistory
++ action: `clock-in` (enum[string]) - What data are changed
+    - `clock-in`
+    - `clock-out`
+    - `break`
++ previousTime: `08:00` (string, optional) - Old value for clockIn, clockOut or break
++ time: `09:00` (string, optional) - New value for clockIn, clockOut or break
++ trigger: `manually` (enum[string]) - Action
+    - `manually`
+    - `timer`
+    - `button`
+    - `day-end`
+    - `idle-state`
+
+### Timecard
++ user: 69 (number) - User ID
++ clockIn: `09:00` (string, optional) - Clock-in time in user timezone
++ clockOut: `18:00` (string, optional) - Clock-out time in user timezone
++ breakTime: 3600 (number, optional) - Breaks duration in secods
++ workTime: 28800 (number) - Working time in seconds (formula: clock-out - clock-in - breaks)
++ history (array[TimecardHistory])

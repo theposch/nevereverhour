@@ -18,7 +18,7 @@ import {
 interface User {
   name: string
   email: string
-  avatar: string
+  avatar?: string
 }
 
 interface NavUserProps {
@@ -26,13 +26,19 @@ interface NavUserProps {
 }
 
 export function NavUser({ user }: NavUserProps) {
+  const initials = user.name
+    .split(" ")
+    .map(n => n[0])
+    .join("")
+    .toUpperCase()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-12 w-full justify-start gap-2 px-4">
           <Avatar className="h-6 w-6">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            {user.avatar && <AvatarImage src={user.avatar} alt={user.name} />}
+            <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-start text-sm">
             <span className="font-medium">{user.name}</span>

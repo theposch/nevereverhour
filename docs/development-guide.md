@@ -13,22 +13,7 @@ The Neverhour Dashboard is a modern Next.js application that provides a comprehe
 - **Type Safety**: TypeScript
 - **API Integration**: Everhour REST API
 
-## Project Structure
-```
-neverhour-dashboard/
-├── app/                    # Next.js App Router directory
-│   ├── dashboard/         # Dashboard page
-│   ├── projects/         # Projects section
-│   ├── reports/          # Reports and analytics
-│   ├── team/            # Team management
-│   ├── time/            # Time tracking
-│   └── ui-kit/          # UI components showcase
-├── components/           # Reusable components
-│   ├── ui/              # Shadcn UI components
-│   └── [feature]/       # Feature-specific components
-├── lib/                 # Utility functions and services
-└── docs/               # Project documentation
-```
+
 
 ## Key Features
 

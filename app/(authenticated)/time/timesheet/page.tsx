@@ -1,4 +1,5 @@
-import { AppSidebar } from "../../../components/app-sidebar"
+import * as React from "react"
+import { AppSidebar } from "@/components/app-sidebar"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import {
   Breadcrumb,
@@ -9,7 +10,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
-import { TimesheetContent } from "../../../components/timesheet-content"
+import { TimesheetContent } from "@/components/timesheet-content"
 
 export default function TimesheetPage() {
   return (

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { BarChart3, Clock, Folder, Users, Calendar, Settings, Palette, LayoutDashboard } from "lucide-react"
+import { BarChart3, Clock, Folder, Users, Calendar, Settings, Palette, LayoutDashboard, Briefcase } from "lucide-react"
 
 import { NavMain } from "./nav-main"
 import { NavProjects } from "./nav-projects"
@@ -63,6 +63,16 @@ const data = {
         { title: "Timesheet", url: "/time/timesheet" },
         { title: "Timer", url: "/time/timer" },
         { title: "Time Off", url: "/time/off" },
+      ],
+    },
+    {
+      title: "Resourcing",
+      url: "/resourcing",
+      icon: Briefcase,
+      items: [
+        { title: "Insights", url: "/resourcing/insights" },
+        { title: "Capacity", url: "/resourcing/capacity" },
+        { title: "Allocation", url: "/resourcing/allocation" },
       ],
     },
     {
