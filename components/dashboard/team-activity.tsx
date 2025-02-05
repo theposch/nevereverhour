@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { Card } from "@/components/ui/card"
 
 interface ActivityData {
@@ -12,14 +13,24 @@ interface ActivityData {
 const generateHeatmapData = (): ActivityData[] => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
   const hours = Array.from({ length: 12 }, (_, i) => i + 8) // 8 AM to 8 PM
+  
+  // Static activity values instead of random
+  const activityValues = {
+    Mon: [4, 3, 2, 7, 0, 2, 8, 7, 6, 4, 5, 2],
+    Tue: [3, 5, 6, 2, 8, 4, 3, 7, 8, 5, 4, 3],
+    Wed: [5, 4, 7, 3, 6, 8, 2, 4, 5, 7, 3, 6],
+    Thu: [2, 6, 3, 8, 4, 5, 7, 3, 6, 4, 5, 2],
+    Fri: [6, 3, 5, 4, 7, 2, 8, 5, 3, 6, 4, 7]
+  }
+
   const data: ActivityData[] = []
 
-  days.forEach(day => {
-    hours.forEach(hour => {
+  days.forEach((day, dayIndex) => {
+    hours.forEach((hour, hourIndex) => {
       data.push({
         day,
         hour: `${hour}:00`,
-        value: Math.floor(Math.random() * 10)
+        value: activityValues[day][hourIndex]
       })
     })
   })
