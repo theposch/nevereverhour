@@ -9,6 +9,7 @@ import { NavUser } from "./nav-user"
 import { TeamSwitcher } from "./team-switcher"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
+import { ThemeCustomizer } from "@/components/theme-customizer"
 
 // This is sample data for Everhour.
 const data = {
@@ -108,8 +109,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
-      <div className="mt-auto p-4">
+      <div className="mt-auto p-4 flex items-center gap-2">
         <ModeToggle />
+        <ThemeCustomizer />
       </div>
     </Sidebar>
   )
