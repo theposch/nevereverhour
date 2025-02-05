@@ -1,0 +1,39 @@
+---
+description: Common Tasks: adding new features, modifying the UI, working with data, making api calls, 
+globs: 
+---
+## Common Tasks
+
+### Adding New Features
+1. Create new components in appropriate directories
+2. Update routing if needed
+3. Add necessary API endpoints
+4. Update documentation
+
+### Modifying the UI
+1. Use Shadcn UI components when possible
+2. Customize using Tailwind CSS
+3. Maintain consistency with existing design
+4. Test responsiveness
+
+### Working with Data
+1. Use Server Components for data fetching
+2. Implement proper loading states
+3. Handle errors gracefully
+4. Update visualizations as needed
+
+### Working with Everhour API
+All requests must include the `X-Api-Key` header with a valid API key. The API key must have appropriate permissions for the endpoints being accessed.
+
+### Making API calls using curl
+When testing or making a call to the API, we can use curl to make the requests. first ensure the environment variable `EVERHOUR_API_KEY` is set. @env.local
+
+```bash
+curl -X GET "https://api.everhour.com/team/users" -H "X-Api-Key: YOUR_API_KEY"
+```
+
+
+Example usage:
+```bash
+curl -H "X-Api-Key: $EVERHOUR_API_KEY" "https://api.everhour.com/reports/time?from=2024-01-01&to=2024-03-19" | jq
+```

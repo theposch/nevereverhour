@@ -1,83 +1,81 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { LucideIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
-    isExternal?: boolean
-    items?: {
-      title: string
-      url: string
-    }[]
-  }[]
-}) {
+interface NavItem {
+  title: string
+  url: string
+  icon: LucideIcon
+  items?: { title: string; url: string }[]
+}
+
+interface NavMainProps {
+  items: NavItem[]
+}
+
+export function NavMain({ items }: NavMainProps) {
+  const pathname = usePathname()
+
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => {
-          // If the item has no subitems or is marked as external, render it as a direct link
-          if (!item.items || item.isExternal) {
-            return (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild tooltip={item.title}>
-                  <a href={item.url}>
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-          }
+    <div className="flex flex-col gap-1">
+      {items.map((item) => {
+        const isActive = pathname === item.url || pathname?.startsWith(item.url + "/")
 
-          // Otherwise, render it as a collapsible menu
+        if (!item.items) {
           return (
-            <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
-              <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {item.items?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild>
-                          <a href={subItem.url}>
-                            <span>{subItem.title}</span>
-                          </a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-          );
-        })}
-      </SidebarMenu>
-    </SidebarGroup>
+            <Button
+              key={item.url}
+              variant={isActive ? "secondary" : "ghost"}
+              className="justify-start"
+              asChild
+            >
+              <Link href={item.url}>
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.title}
+              </Link>
+            </Button>
+          )
+        }
+
+        return (
+          <Collapsible key={item.url} defaultOpen={isActive}>
+            <CollapsibleTrigger asChild>
+              <Button
+                variant={isActive ? "secondary" : "ghost"}
+                className={cn("justify-start w-full", isActive && "mb-1")}
+              >
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.title}
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pl-6">
+              <div className="flex flex-col gap-1">
+                {item.items.map((subItem) => {
+                  const isSubItemActive = pathname === subItem.url
+                  return (
+                    <Button
+                      key={subItem.url}
+                      variant={isSubItemActive ? "secondary" : "ghost"}
+                      className="justify-start"
+                      asChild
+                    >
+                      <Link href={subItem.url}>{subItem.title}</Link>
+                    </Button>
+                  )
+                })}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        )
+      })}
+    </div>
   )
 }
 

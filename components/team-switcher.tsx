@@ -1,77 +1,104 @@
 "use client"
 
 import * as React from "react"
-import { ChevronsUpDown, Plus } from "lucide-react"
+import { Check, ChevronsUpDown } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar"
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
-export function TeamSwitcher({
-  teams,
-}: {
-  teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
-}) {
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+interface Team {
+  name: string
+  logo: React.ElementType
+  plan: string
+}
+
+interface TeamSwitcherProps {
+  teams: Team[]
+}
+
+export function TeamSwitcher({ teams }: TeamSwitcherProps) {
+  const [open, setOpen] = React.useState(false)
+  const [selectedTeam, setSelectedTeam] = React.useState(teams[0])
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <activeTeam.logo className="size-4" />
-              </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
-              </div>
-              <ChevronsUpDown className="ml-auto" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            align="start"
-            side={isMobile ? "bottom" : "right"}
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="text-xs text-zinc-500 dark:text-zinc-400">Teams</DropdownMenuLabel>
-            {teams.map((team, index) => (
-              <DropdownMenuItem key={team.name} onClick={() => setActiveTeam(team)} className="gap-2 p-2">
-                <div className="flex size-6 items-center justify-center rounded-sm border">
-                  <team.logo className="size-4 shrink-0" />
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="ghost"
+          role="combobox"
+          aria-expanded={open}
+          aria-label="Select a team"
+          className="h-12 w-full justify-between px-4"
+        >
+          <div className="flex items-center gap-2">
+            {selectedTeam && (
+              <>
+                {React.createElement(selectedTeam.logo, {
+                  className: "h-4 w-4",
+                })}
+                <div className="flex flex-col items-start text-sm">
+                  <span className="font-medium">{selectedTeam.name}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {selectedTeam.plan}
+                  </span>
                 </div>
-                {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
-              </DropdownMenuItem>
+              </>
+            )}
+          </div>
+          <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search team..." />
+          <CommandEmpty>No team found.</CommandEmpty>
+          <CommandGroup>
+            {teams.map((team) => (
+              <CommandItem
+                key={team.name}
+                onSelect={() => {
+                  setSelectedTeam(team)
+                  setOpen(false)
+                }}
+                className="text-sm"
+              >
+                <div className="flex items-center gap-2">
+                  {React.createElement(team.logo, {
+                    className: "h-4 w-4",
+                  })}
+                  <div className="flex flex-col items-start">
+                    <span>{team.name}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {team.plan}
+                    </span>
+                  </div>
+                </div>
+                <Check
+                  className={cn(
+                    "ml-auto h-4 w-4",
+                    selectedTeam.name === team.name
+                      ? "opacity-100"
+                      : "opacity-0"
+                  )}
+                />
+              </CommandItem>
             ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
-                <Plus className="size-4" />
-              </div>
-              <div className="font-medium text-zinc-500 dark:text-zinc-400">Add team</div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
   )
 }
 

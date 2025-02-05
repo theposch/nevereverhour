@@ -1,7 +1,7 @@
 "use client"
 
-import type * as React from "react"
-import { BarChart3, Clock, Folder, Users, Calendar, Settings, Palette } from "lucide-react"
+import * as React from "react"
+import { BarChart3, Clock, Folder, Users, Calendar, Settings, Palette, LayoutDashboard } from "lucide-react"
 
 import { NavMain } from "./nav-main"
 import { NavProjects } from "./nav-projects"
@@ -32,66 +32,69 @@ const data = {
   ],
   navMain: [
     {
-      title: "Time",
-      url: "#",
-      icon: Clock,
-      isActive: true,
-      items: [
-        { title: "Timesheet", url: "#" },
-        { title: "Timer", url: "#" },
-        { title: "Time Off", url: "#" },
-      ],
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
     },
     {
       title: "Projects",
-      url: "#",
+      url: "/projects",
       icon: Folder,
       items: [
-        { title: "All Projects", url: "#" },
-        { title: "Tasks", url: "#" },
-        { title: "Budgets", url: "#" },
+        { title: "All Projects", url: "/projects" },
+        { title: "Tasks", url: "/projects/tasks" },
+        { title: "Budgets", url: "/projects/budgets" },
       ],
     },
     {
       title: "Team",
-      url: "#",
+      url: "/team",
       icon: Users,
       items: [
-        { title: "Members", url: "#" },
-        { title: "Schedule", url: "#" },
+        { title: "Members", url: "/team/members" },
+        { title: "Schedule", url: "/team/schedule" },
+      ],
+    },
+    {
+      title: "Time",
+      url: "/time",
+      icon: Clock,
+      items: [
+        { title: "Timesheet", url: "/time/timesheet" },
+        { title: "Timer", url: "/time/timer" },
+        { title: "Time Off", url: "/time/off" },
       ],
     },
     {
       title: "Reports",
-      url: "#",
+      url: "/reports",
       icon: BarChart3,
       items: [
-        { title: "Dashboard", url: "#" },
-        { title: "Time Reports", url: "#" },
-        { title: "Expenses", url: "#" },
+        { title: "Dashboard", url: "/reports/dashboard" },
+        { title: "Time Reports", url: "/reports/time" },
+        { title: "Expenses", url: "/reports/expenses" },
       ],
     },
     {
       title: "Calendar",
-      url: "#",
+      url: "/calendar",
       icon: Calendar,
     },
     {
       title: "Settings",
-      url: "#",
+      url: "/settings",
       icon: Settings,
     },
     {
       title: "UI Kit",
       url: "/ui-kit",
       icon: Palette,
-      isExternal: true,
     },
   ],
   projects: [
-    { name: "Website Redesign", url: "#", icon: Folder },
-    { name: "Mobile App", url: "#", icon: Folder },
-    { name: "Marketing Campaign", url: "#", icon: Folder },
+    { name: "Website Redesign", url: "/projects/website-redesign", icon: Folder },
+    { name: "Mobile App", url: "/projects/mobile-app", icon: Folder },
+    { name: "Marketing Campaign", url: "/projects/marketing", icon: Folder },
   ],
 }
 
